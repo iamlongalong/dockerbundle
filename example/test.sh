@@ -23,13 +23,17 @@ sleep 5  # 等待服务启动
 echo "Writing test data..."
 docker-compose exec -T redis redis-cli set test_key "test_value"
 
+docker-compose down
+
 # 使用 dockerbundle 打包
 echo "Creating bundle..."
-../dockerbundle -c docker-compose.yml -o ../bundle
+../dockerbundle -a -v -o ../bundle
 
 # 创建必要的目录和文件
 echo "Creating required directories and files..."
 cd ../bundle
+
+tree
 
 chmod +x scripts/restore.sh
 
